@@ -81,20 +81,6 @@ skills/
 
 本目录是**独立 Git 仓库**（内含 `.git/`），可与外层「企划用研中台」仓库分开推送。
 
-### 一键推送（推荐，在本机终端执行）
-
-需已 `gh auth login` 且本机能访问 GitHub：
-
-```bash
-cd /path/to/urpm-insight-cli
-chmod +x push-to-github.sh
-./push-to-github.sh
-```
-
-私有仓库：先改脚本里 `gh repo create` 为 `--private`，或手动 `gh repo create ... --private`。
-
-### 手动步骤
-
 1. 在 GitHub 上 **New repository**，名称建议 `urpm-insight-cli`，**不要**勾选 “Add a README”（本地已有）。
 2. 在本机执行（将 URL 换成你的仓库）：
 
@@ -110,8 +96,6 @@ git push -u origin main
 cd urpm-insight-cli
 gh repo create urpm-insight-cli --public --source=. --remote=origin --push
 ```
-
-**说明**：IDE 内置 Agent 的运行环境往往**访问不了 GitHub API**，推送必须在**你自己的终端**完成。
 
 **合规**：若代码不可公开，创建 **Private** 仓库即可，其他 Agent 凭权限 `git clone` 同样可安装。
 
