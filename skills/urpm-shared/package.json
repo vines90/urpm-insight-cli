@@ -1,0 +1,13 @@
+{
+  "name": "urpm-cli",
+  "version": "0.1.0",
+  "description": "TCL URPM 用户洞察平台 CLI",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "urpm": "./bin/urpm-cli"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
