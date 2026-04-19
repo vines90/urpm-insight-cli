@@ -77,6 +77,28 @@ skills/
 
 本工具仅封装贵司已部署的 URPM HTTP API；发布前请确认符合 **TCL 代码与数据外发** 政策。若不能公开仓库，可使用 **GitHub Private** 或内部 GitLab，安装方式相同（`git clone` 使用内网 URL）。
 
+## 发布到 GitHub（首次）
+
+本目录是**独立 Git 仓库**（内含 `.git/`），可与外层「企划用研中台」仓库分开推送。
+
+1. 在 GitHub 上 **New repository**，名称建议 `urpm-insight-cli`，**不要**勾选 “Add a README”（本地已有）。
+2. 在本机执行（将 URL 换成你的仓库）：
+
+```bash
+cd /path/to/企划用研中台_1205/urpm-insight-cli
+git remote add origin https://github.com/<USER_OR_ORG>/urpm-insight-cli.git
+git push -u origin main
+```
+
+若已安装 [GitHub CLI](https://cli.github.com/) 且已登录：
+
+```bash
+cd urpm-insight-cli
+gh repo create urpm-insight-cli --public --source=. --remote=origin --push
+```
+
+**合规**：若代码不可公开，创建 **Private** 仓库即可，其他 Agent 凭权限 `git clone` 同样可安装。
+
 ## License
 
 内部工具，默认 **TCL 专有**；如需添加许可证文件请由法务/仓库所有者补充。
