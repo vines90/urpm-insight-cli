@@ -11,13 +11,18 @@
 git clone https://github.com/<你的用户名>/urpm-insight-cli.git
 cd urpm-insight-cli
 chmod +x install.sh
-./install.sh
+# 只把 Skills 装到你正在用的 Agent（示例：Trae CN）
+URPM_AGENT=trae-cn ./install.sh
 ```
 
 安装内容：
 
 - 将 `urpm` 链到 `~/.local/bin/urpm`（可用环境变量 `INSTALL_BIN` 覆盖）
-- 将各 `urpm-*` 目录复制到 `~/.cursor/skills/`（可用 `SKILLS_DEST` 或 `--skills-dir` 覆盖）
+- 将各 `urpm-*` 目录复制到**指定 Agent** 的 skills 目录（**不会**默认给所有 Agent 各装一份）
+
+**`URPM_AGENT` 取值**：`cursor` · `claude` · `trae` · `trae-cn` · `codex` · `continue` · `agents` · `all`（装到全部已知路径）
+
+**自动选择**：若未设置 `URPM_AGENT`，且本机检测到的已安装 Agent **恰好只有一个**，则自动装到该 Agent；若装了多个且无法从终端环境判断，脚本会报错并提示你设置 `URPM_AGENT`。
 
 若 `urpm` 仍找不到，把下面加入 `~/.zshrc`：
 
@@ -29,8 +34,10 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ```bash
 ./install.sh --cli-only
-./install.sh --skills-only
-./install.sh --skills-dir /path/to/.cursor/skills
+URPM_AGENT=cursor ./install.sh --skills-only
+./install.sh --skills-dir /path/a --skills-dir /path/b
+./install.sh --all-agents                    # 等价于 URPM_AGENT=all
+./install.sh --list-agents                   # 查看本机已检测到哪些 Agent
 ```
 
 ## 一行克隆并安装（给其他机器 / Agent）
@@ -68,7 +75,7 @@ skills/
 
 ## 给其他 Agent 的说明
 
-1. 克隆本仓库并执行 `./install.sh`，或把 `skills/` 下目录复制到目标环境的 `~/.cursor/skills/`。
+1. 克隆本仓库并执行 `URPM_AGENT=<你的工具> ./install.sh`，或把 `skills/` 下各 `urpm-*` 目录**只**复制到你正在用的 Agent 的 skills 目录（见 `install-common.sh` 内路径表）。
 2. 确保 Node 18+：`node -v`
 3. 用户需自行 `urpm auth login`；凭据在 `~/.urpm/credentials.json`，勿提交到 git。
 4. 写操作默认 dry-run，需显式 `--yes`。
